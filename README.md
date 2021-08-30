@@ -2,22 +2,22 @@
 
 common libraries for window-analyze backend
 
-# LoadBootstrapConfig
+## LoadBootstrapConfig
 
 reads configuration under `config/bootstrap-{env}.json`
 
-# LoadConfigForApp
+## LoadConfigForApp
 
 reads configuration from config server
 
-# AbsolutePathOfFile
+## AbsolutePathOfFile
 
 generates absolute path of file
 
-# SaveUserIDToContext
+## SaveUserIDToContext
 
 SaveUserIDToContext saves user id to context
 
-# GetUserIDFromContext
+## GetUserIDFromContext
 
 GetUserIDFromContext returns user id value from context
