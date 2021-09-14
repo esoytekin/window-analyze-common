@@ -2,7 +2,6 @@ package common
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -31,10 +30,6 @@ func LoadBootstrapConfig() error {
 	environment := os.Getenv("ENVRM")
 	if environment == "" {
 		environment = "dev"
-	}
-
-	if environment != "dev" && environment != "prod" && environment != "test" {
-		return errors.New("unknown_environment: " + environment)
 	}
 
 	file, err := os.Open(fmt.Sprintf("config/bootstrap-%s.json", environment))
