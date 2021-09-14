@@ -17,7 +17,7 @@ const defaultPath = "../documents"
 
 // Configuration stores setting values
 type Configuration struct {
-	AppName             string `json:"appName"`
+	AppName          string `json:"appName"`
 	ConfigServerAddr string `json:"configServerAddr"`
 }
 
@@ -61,9 +61,6 @@ func LoadConfigForApp(item interface{}) error {
 		environment = "dev"
 	}
 
-	if environment != "dev" && environment != "prod" && environment != "test" {
-		return errors.New("unknown_environment: " + environment)
-	}
 	var client http.Client
 	addr := fmt.Sprintf("%s/config/%s-%s.json", Config.ConfigServerAddr, appName, environment)
 
