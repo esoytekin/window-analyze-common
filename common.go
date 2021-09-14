@@ -89,3 +89,17 @@ func AbsolutePathOfFile(userID, filePath, fileName string) string {
 	return abs
 
 }
+
+// LoadPort returns port value
+func LoadPort(defaultPort string) string {
+
+	var port string
+
+	if envPort, ok := os.LookupEnv("PORT"); ok {
+		port = fmt.Sprintf(":%s", envPort)
+	} else {
+		port = fmt.Sprintf(":%s", defaultPort)
+	}
+
+	return port
+}
