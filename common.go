@@ -73,19 +73,29 @@ func LoadConfigForApp(item interface{}) error {
 
 	err = json.Unmarshal(responseData, item)
 
-	file, err := os.Open(fmt.Sprintf("config/secrets-%s.json", environment))
-
-	if err != nil {
-		return nil
-	}
-
-	err = json.NewDecoder(file).Decode(item)
+	_ = loadSecrets(item, environment)
 
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func loadSecrets(item interface{}, environment string) error {
+
+	file, err := os.Open(fmt.Sprintf("config/secrets-%s.json", environment))
+
+	if err != nil {
+		return nil
+	}
+	secretData, err := ioutil.ReadAll(file)
+
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(secretData, item)
 }
 
 // AbsolutePathOfFile returns absolute path for file
