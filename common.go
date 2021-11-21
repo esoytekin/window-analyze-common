@@ -73,6 +73,18 @@ func LoadConfigForApp(item interface{}) error {
 
 	err = json.Unmarshal(responseData, item)
 
+	file, err := os.Open(fmt.Sprintf("config/secrets-%s.json", environment))
+
+	if err != nil {
+		return nil
+	}
+
+	err = json.NewDecoder(file).Decode(&Config)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
