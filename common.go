@@ -79,7 +79,7 @@ func LoadConfigForApp(item interface{}) error {
 		return nil
 	}
 
-	err = json.NewDecoder(file).Decode(&Config)
+	err = json.NewDecoder(file).Decode(item)
 
 	if err != nil {
 		return err
