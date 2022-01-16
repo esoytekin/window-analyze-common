@@ -73,7 +73,7 @@ func LoadConfigForApp(item interface{}) error {
 
 	err = json.Unmarshal(responseData, item)
 
-	_ = loadSecrets(item, environment)
+	_ = LoadSecrets(item, environment)
 
 	if err != nil {
 		return err
@@ -82,9 +82,12 @@ func LoadConfigForApp(item interface{}) error {
 	return nil
 }
 
-func loadSecrets(item interface{}, environment string) error {
+func LoadSecrets(item interface{}, environment string) error {
 
-	file, err := os.Open(fmt.Sprintf("config/secrets-%s.json", environment))
+	testTempPath := os.Getenv("TEST_TEMP_PATH")
+	secretsFile := fmt.Sprintf("secrets-%s.json", environment)
+
+	file, err := os.Open(path.Join(testTempPath, "config", secretsFile))
 
 	if err != nil {
 		return nil
