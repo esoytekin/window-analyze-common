@@ -7,3 +7,5 @@ const (
 	Admin      Role = "admin"
 	Demo       Role = "demo"
 )
+
+var AdminRoles = []Role{SuperAdmin, Admin}

@@ -15,6 +15,7 @@ type AuthenticationService interface {
 	GetUserID(ctx *gin.Context) string
 	GetAuthorizationHeader(ctx *gin.Context) string
 	HasRole(ctx *gin.Context, role Role) bool
+	HasPermission(ctx *gin.Context, roles []Role) bool
 	GetUser(ctx *gin.Context) (*User, error)
 }
 
@@ -70,6 +71,25 @@ func (s *AuthenticationServiceImpl) HasRole(ctx *gin.Context, role Role) bool {
 	for _, r := range user.Role {
 		if r == string(role) {
 			return true
+		}
+	}
+
+	return false
+}
+
+func (s *AuthenticationServiceImpl) HasPermission(ctx *gin.Context, roles []Role) bool {
+	user, err := s.GetUser(ctx)
+
+	if err != nil {
+		logrus.Error(err.Error())
+		return false
+	}
+
+	for _, role := range user.Role {
+		for _, r := range roles {
+			if string(r) == role {
+				return true
+			}
 		}
 	}
 
